@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 全局参数配置 -->
+	<settings>
+		<!-- 使用驼峰命名法转换字段，它的作用是查询时，要查询的字段不用设定别名 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- 打开延时加载(也称懒加载)的开关-->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 将积极加载改为消极加载，即按需加载 -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+		<!-- 允许使用二级缓存， -->
+		<setting name="cacheEnabled" value="false"/>
+		<!-- 当返回数据类型为map，设置callSettersOnNulls会把值为null的key也返回 -->
+		<setting name="callSettersOnNulls" value="true"/>
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings>
+</configuration>

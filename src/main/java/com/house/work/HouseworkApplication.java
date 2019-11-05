@@ -8,13 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.**.sqlmap")
+@MapperScan(basePackages = "com.**.dao")
 public class HouseworkApplication {
 
-	@RequestMapping("/")
-	public String index(){
-		return "hello world";
-	}
 	public static void main(String[] args) {
 		SpringApplication.run(HouseworkApplication.class, args);
 	}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.house.work.dao.PersonalCookingIntegrationDao">
+  <resultMap id="BaseResultMap" type="com.house.work.entity.PersonalCookingIntegration">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="integration" jdbcType="INTEGER" property="integration" />
+    <result column="actionType" jdbcType="INTEGER" property="actionType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, integration, actionType
+  </sql>
+  <select id="getPersonalInfoById" parameterType="java.lang.String" resultType="com.house.work.entity.PersonalCookingIntegration">
+    select 
+    <include refid="Base_Column_List" />
+    from account_electricitybill_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insert" parameterType="com.house.work.entity.PersonalCookingIntegration">
+    insert into account_electricitybill_detail (id, name, integration, actionType)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{integration,jdbcType=INTEGER},
+      #{actionType,jdbcType=INTEGER})
+  </insert>
+
+  <update id="update" parameterType="com.house.work.entity.PersonalCookingIntegration">
+    update account_electricitybill_detail
+    set name = #{name,jdbcType=VARCHAR},
+      integration = #{integration,jdbcType=INTEGER},
+      actionType = #{actionType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- extends sql -->
+    <select id="listByPage" resultMap="BaseResultMap">
+        <include refid="common.pageHead" />
+        <include refid="getListByPagesql" />
+        <include refid="common.pageBottom" />
+    </select>
+
+    <select id="count" resultType="int">
+        select count(1) from (
+        <include refid="getListByPagesql" />
+        ) t1
+    </select>
+
+    <sql id="getListByPagesql">
+        select 
+        <include refid="Base_Column_List" />
+        from account_electricitybill_detail
+    </sql>
+
+  <select id="list" parameterType="com.house.work.entity.PersonalCookingIntegration" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from account_electricitybill_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+</mapper>
