@@ -4,7 +4,59 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
+<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
 <body>
-  登录成功！
+<div ng-app="angularApp" ng-controller="personalInfoCtrl">
+    登录成功！
+    <input type="button" value="个人信息" onclick="getPersonalInfo()">
+    <table>
+        <tr>
+            <td>id:{{id}}</td>
+            <td>名称:{{name}}</td>
+        </tr>
+        <tr>
+            <td>类型:{{actionType | actionType}}</td>
+
+        </tr>
+    </table>
+</div>
+<script>
+    var app = angular.module("angularApp");
+    app.controller('personalInfoCtrl', function ($scope, $rootScope, $sce, $uibModal, $state, $http, $filter, fac) {
+
+        $scope.id='';
+        $scope.name='';
+        $scope.actionType='';
+
+        // 查询
+        $scope.getPersonalInfo = function () {
+            $http.post('/getPersonalInfo').success(function (data) {
+                if(data.code){
+                    $scope.id=data.data.id;
+                    $scope.name=data.data.name;
+                    $scope.actionType=data.data.actionType+'';
+                }
+            })
+        }
+
+    });
+
+    // 类型 1-吃饭，2-做饭，3-洗碗
+    app.filter("actionType", function () {
+        return function (status) {
+            switch (status) {
+                case '1':
+                    return '吃饭';
+                    break;
+                case '2':
+                    return '做饭';
+                    break;
+                case '3':
+                    return '洗碗';
+                    break;
+            }
+        }
+    })
+</script>
 </body>
 </html>
