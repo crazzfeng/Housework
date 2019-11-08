@@ -4,12 +4,16 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
-<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript" src="js/angular1.5.11/angular.min.js"></script>
+<script type="text/javascript" src="js/angular1.5.11/angular-locale_zh-cn.js"></script>
+<script type="text/javascript" src="js/angular1.5.11/ui-bootstrap-tpls.js"></script>
+<script type="text/javascript" src="js/angular1.5.11/ocLazyLoad.min.js"></script>
+<script type="text/javascript" src="js/angular1.5.11/clickoutside.directive.js"></script>
 <body>
-<div ng-app="angularApp" ng-controller="personalInfoCtrl">
+<div ng-app="myApp" ng-controller="personalInfoCtrl">
     登录成功！
-    <input type="button" value="个人信息" onclick="getPersonalInfo()">
-    <table>
+    <input type="button" value="个人信息" ng-click="getPersonalInfo()"/>
+    <table ng-hide="show">
         <tr>
             <td>id:{{id}}</td>
             <td>名称:{{name}}</td>
@@ -21,20 +25,23 @@
     </table>
 </div>
 <script>
-    var app = angular.module("angularApp");
+    var app = angular.module('myApp', []);
     app.controller('personalInfoCtrl', function ($scope, $rootScope, $sce, $uibModal, $state, $http, $filter, fac) {
-
-        $scope.id='';
-        $scope.name='';
-        $scope.actionType='';
+        $scope.show = false;
+        $scope.id = '';
+        $scope.name = '';
+        $scope.actionType = '';
+        $scope.integration = 0;
 
         // 查询
         $scope.getPersonalInfo = function () {
-            $http.post('/getPersonalInfo').success(function (data) {
-                if(data.code){
-                    $scope.id=data.data.id;
-                    $scope.name=data.data.name;
-                    $scope.actionType=data.data.actionType+'';
+            $http.post('http://127.0.0.1:8081/getPersonalInfo', {"id": app.id}).success(function (data) {
+                if (data.code) {
+                    $scope.id = data.data.id;
+                    $scope.name = data.data.name;
+                    $scope.actionType = data.data.actionType + '';
+                    $scope.integration = data.data.integration;
+                    $scope.show = true;
                 }
             })
         }

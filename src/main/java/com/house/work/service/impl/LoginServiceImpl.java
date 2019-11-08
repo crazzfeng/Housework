@@ -1,13 +1,13 @@
 package com.house.work.service.impl;
 
 import com.house.work.dao.LoginDao;
+import com.house.work.entity.UserInfo;
 import com.house.work.service.LoginService;
 import com.house.work.util.MD5Util;
+import com.house.work.util.RedisUtil;
 import com.house.work.util.Seq;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-import sun.security.provider.MD5;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,25 +25,27 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private LoginDao loginDao;
 
-    private ValueOperations<String, String> redisCache;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public int login(HttpServletRequest request, HttpServletResponse response, String name, String password) {
         String s = MD5Util.MD5(password);
-        int login = loginDao.login(name, s);
-        if (login>0){
+        UserInfo login = loginDao.login(name, s);
+        if (login != null) {
             String token = Seq.createSeqS();
-            redisCache.append("name",name);
-            redisCache.append("password",s);
-            redisCache.append("token", token);
-            Cookie cookie = new Cookie("token",token);
+            redisUtil.set("loginName", login.getLoginName(), 1800L);
+            redisUtil.set("id", login.getId().getBytes(), 1800L);
+            redisUtil.set("password", login.getPassword().getBytes(), 1800L);
+            redisUtil.set("token", token.getBytes(), 1800L);
+            Cookie cookie = new Cookie("token", token);
             cookie.setPath("/");
             if ("https".equals(request.getScheme())) {
                 cookie.setSecure(true);
             }
             response.addCookie(cookie);
             return 1;
-        }else {
+        } else {
             return 0;
         }
     }

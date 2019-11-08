@@ -1,5 +1,6 @@
 package com.house.work.controller;
 
+import com.house.work.entity.PersonalCookingIntegration;
 import com.house.work.service.LoginService;
 import com.house.work.service.PersonalCookingIntegrationService;
 import com.house.work.util.Result;
@@ -49,9 +50,10 @@ public class PersonalCookingIntegrationController{
 
     @RequestMapping("/getPersonalInfo")
     @ResponseBody
-    public Result getPersonalInfo(){
+    public Result getPersonalInfo(String id){
         try {
-            return Result.success("查询个人信息成功");
+            PersonalCookingIntegration info = personalCookingIntegrationService.getPersonalInfoById(id);
+            return Result.success(info);
         }catch (Exception e){
             e.printStackTrace();
             return Result.error("查询个人信息失败");

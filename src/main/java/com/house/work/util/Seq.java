@@ -11,10 +11,5 @@ public class Seq {
 	public static long createSeqN(){
 		return System.currentTimeMillis();
 	}
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-	}
 
 }

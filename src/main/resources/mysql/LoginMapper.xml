@@ -2,9 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.house.work.dao.LoginDao">
 
-    <select id="login" resultType="integer">
-        select count(*)  from sys_tb_park_user
-        where loginName = #{name,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+    <resultMap id="BaseResultMap" type="com.house.work.entity.UserInfo">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="loginName" jdbcType="VARCHAR" property="loginName" />
+        <result column="password" jdbcType="INTEGER" property="password" />
+    </resultMap>
+
+    <select id="login" resultType="com.house.work.entity.UserInfo">
+        select id, loginName, password from sys_tb_park_user
+        where loginName = #{loginName,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
     </select>
 
 </mapper>

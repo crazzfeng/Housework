@@ -1,5 +1,6 @@
 package com.house.work.dao;
 
+import com.house.work.entity.UserInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LoginDao {
 
-    int login(@Param("name") String name, @Param("password") String password);
+    UserInfo login(@Param("loginName") String loginName, @Param("password") String password);
 }
