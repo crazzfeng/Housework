@@ -17,7 +17,7 @@ public interface PersonalCookingIntegrationService {
 
     void update(PersonalCookingIntegration personalCookingIntegration);
 
-    PersonalCookingIntegration getPersonalInfoById(String id);
+    PersonalCookingIntegration getPersonalInfoById(Integer id);
 
     List<PersonalCookingIntegration> list(PersonalCookingIntegration personalCookingIntegration);
 

@@ -15,7 +15,7 @@ public class UserInfo {
     /**
      * id
      */
-    String id;
+    Integer id;
 
     /**
      * 登录名

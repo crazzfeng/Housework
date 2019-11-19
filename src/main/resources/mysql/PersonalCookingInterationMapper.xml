@@ -10,7 +10,7 @@
   <sql id="Base_Column_List">
     id, name, integration, actionType
   </sql>
-  <select id="getPersonalInfoById" parameterType="java.lang.String" resultType="com.house.work.entity.PersonalCookingIntegration">
+  <select id="getPersonalInfoById" parameterType="java.lang.Integer" resultType="com.house.work.entity.PersonalCookingIntegration">
     select 
     <include refid="Base_Column_List" />
     from account_electricitybill_detail

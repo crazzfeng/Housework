@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.house.work.dao.HouseworkTypeDao">
+
+    <resultMap id="BaseResultMap" type="com.house.work.entity.HouseworkType">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="typeName" jdbcType="VARCHAR" property="typeName" />
+        <result column="score" jdbcType="INTEGER" property="score" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.house.work.entity.UserInfo">
+        insert into sys_tb_park_user (id, typeName, score )
+        values ( #{id}, #{typeName}, #{score} )
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        delete from sys_tb_park_user where id = #{id}
+    </delete>
+
+
+    <update id="update" parameterType="com.house.work.entity.UserInfo">
+        update sys_tb_park_user set
+            typeName = #{typeName}, score = #{score}
+        where id = #{id}
+    </update>
+
+    <select id="select" parameterType="com.house.work.entity.UserInfo">
+        select * from sys_tb_park_user
+        <where>
+            1 = 1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="typeName != null">
+                and typeName = #{typeName}
+            </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Integer">
+        select * from sys_tb_park_user
+        where id = #{id}
+    </select>
+
+</mapper>
