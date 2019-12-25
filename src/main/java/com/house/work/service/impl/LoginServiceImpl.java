@@ -11,6 +11,7 @@ import com.house.work.util.Seq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    @Autowired
+    @Resource(type = LoginDao.class)
     private LoginDao loginDao;
 
-    @Autowired
+    @Resource(type = RedisUtil.class)
     private RedisUtil redisUtil;
 
     @Override

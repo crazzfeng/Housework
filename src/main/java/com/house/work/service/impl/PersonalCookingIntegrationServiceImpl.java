@@ -8,6 +8,7 @@ import com.house.work.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 @Service
 public class PersonalCookingIntegrationServiceImpl implements PersonalCookingIntegrationService {
 
-    @Autowired
+    @Resource(type = PersonalCookingIntegrationDao.class)
     private PersonalCookingIntegrationDao personalCookingIntegrationDao;
 
     @Override
