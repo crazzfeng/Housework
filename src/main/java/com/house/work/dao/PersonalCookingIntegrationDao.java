@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Repository
 //@Mapper   //第一种方式 为再Application类中增加注解 @MapperScan(basePackages = "com.house.work.dao")
-            //第二种方式 为到层增加@Mapper 但其Sql语句 需以注解的方式实现
+            //第二种方式 为Dao层增加@Mapper 并且其Sql语句 可以以注解的方式实现
 public interface PersonalCookingIntegrationDao {
 
 

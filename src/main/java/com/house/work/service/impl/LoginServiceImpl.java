@@ -15,8 +15,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static javax.swing.text.html.HTML.Tag.BASE;
-
 /**
  * @author yufeng li
  * @title: LoginServiceImpl

@@ -2,6 +2,8 @@ package com.house.work.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.house.work.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.*;
@@ -16,9 +18,11 @@ import java.io.PrintWriter;
  * @author robin
  *
  */
-@WebFilter("/api")//过滤包含该路径的所有请求
+@WebFilter("/housework")//过滤包含该路径的所有请求
 public class UserLoginFilter implements Filter {
 
+	@Autowired
+	private LoginService loginService;
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
@@ -35,20 +39,20 @@ public class UserLoginFilter implements Filter {
 		/*System.out.println(uri);
 		response.sendRedirect("/404.html");*/
 
-       /* if(SessionUtils.getSessionUser(request) != null){
+        if(loginService.getUserInfo(request) != null){
             // 再跳转一次当前URL，以便去掉URL中token参数
             chain.doFilter(request, response);
         }else{
             redirectLogin(request, response);
-        }*/
+        }
 	}
 
     /**
      * 跳转登录
      *
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request 请求
+     * @param response 响应
+     * @throws IOException 异常
      */
     private void redirectLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
