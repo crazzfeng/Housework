@@ -6,18 +6,14 @@ import com.house.work.entity.UserInfo;
 import com.house.work.service.HouseworkTypeService;
 import com.house.work.service.LoginService;
 import com.house.work.service.PersonalCookingIntegrationService;
-import com.house.work.service.impl.HouseworkTypeServiceImpl;
 import com.house.work.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static java.awt.SystemColor.info;
 
 /**
  * @author yufeng li
@@ -26,6 +22,7 @@ import static java.awt.SystemColor.info;
  * @date 2019/11/4 14:40
  */
 @Controller
+@RequestMapping("/")
 public class PersonalCookingIntegrationController{
 
     @Autowired

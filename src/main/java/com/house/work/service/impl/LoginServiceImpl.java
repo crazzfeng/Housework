@@ -6,9 +6,8 @@ import com.house.work.dao.LoginDao;
 import com.house.work.entity.UserInfo;
 import com.house.work.service.LoginService;
 import com.house.work.util.MD5Util;
-import com.house.work.util.RedisUtil;
+import com.config.redis.RedisUtil;
 import com.house.work.util.Seq;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
