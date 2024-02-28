@@ -61,9 +61,27 @@ public class PersonalCookingIntegrationController{
 
     }
 
-    @RequestMapping("/getPersonalInfo")
+
+    @RequestMapping("/regist")
     @ResponseBody
-    public Result getPersonalInfo(Integer id){
+    public Result regist(HttpServletRequest request, HttpServletResponse response,String name, String password){
+        try {
+            UserInfo login = loginService.regist(request,response,name, password);
+            if (login != null){
+                return Result.success();
+            }else {
+                return Result.error("注册失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.error("注册失败");
+        }
+
+    }
+
+    @RequestMapping("/housework/getPersonalInfo")
+    @ResponseBody
+    public Result getPersonalInfo(String id){
         try {
             PersonalCookingIntegration info = personalCookingIntegrationService.getPersonalInfoById(id);
             return Result.success(info);
@@ -74,9 +92,9 @@ public class PersonalCookingIntegrationController{
     }
 
 
-    @RequestMapping("/dowork")
+    @RequestMapping("/housework/dowork")
     @ResponseBody
-    public Result dowork(HttpServletRequest request,Integer typeId){
+    public Result dowork(HttpServletRequest request,String typeId){
         try {
             UserInfo userInfo = loginService.getUserInfo(request);
             HouseworkType houseworkType = houseworkTypeService.selectById(typeId);

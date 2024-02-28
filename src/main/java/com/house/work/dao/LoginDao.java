@@ -14,4 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface LoginDao {
 
     UserInfo login(@Param("loginName") String loginName, @Param("password") String password);
+
+    int regist(@Param("id") String id, @Param("loginName") String loginName, @Param("password") String password);
+
 }

@@ -16,13 +16,13 @@ import org.springframework.stereotype.Service;
  * @date 2019/11/19 16:00
  */
 @Service
-public class HouseworkTypeServiceImpl extends BaseServiceImpl<HouseworkType,Integer> implements HouseworkTypeService {
+public class HouseworkTypeServiceImpl extends BaseServiceImpl<HouseworkType,String> implements HouseworkTypeService {
 
     @Autowired
     private HouseworkTypeDao houseworkTypeDao;
 
     @Override
-    public BaseDao<HouseworkType, Integer> getDao() {
+    public BaseDao<HouseworkType, String> getDao() {
         return houseworkTypeDao;
     }
 

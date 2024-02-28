@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * @author robin
  *
  */
-@WebFilter("/housework")//过滤包含该路径的所有请求
+@WebFilter(filterName = "loginFilter",urlPatterns = "/housework/*")//过滤包含该路径的所有请求
 public class UserLoginFilter implements Filter {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class UserLoginFilter implements Filter {
 		response.setCharacterEncoding("UTF-8");
 		//忽略请求
 		String uri = request.getRequestURI();
-		chain.doFilter(request, response);
+		//chain.doFilter(request, response);
         if(loginService.getUserInfo(request) != null){
             // 再跳转一次当前URL，以便去掉URL中token参数
             chain.doFilter(request, response);

@@ -9,23 +9,23 @@
     </resultMap>
 
     <insert id="insert" parameterType="com.house.work.entity.UserInfo">
-        insert into sys_tb_park_user (id, typeName, score )
+        insert into house_work_type (id, typeName, score )
         values ( #{id}, #{typeName}, #{score} )
     </insert>
 
     <delete id="delete" parameterType="Integer">
-        delete from sys_tb_park_user where id = #{id}
+        delete from house_work_type where id = #{id}
     </delete>
 
 
     <update id="update" parameterType="com.house.work.entity.UserInfo">
-        update sys_tb_park_user set
+        update house_work_type set
             typeName = #{typeName}, score = #{score}
         where id = #{id}
     </update>
 
     <select id="select" parameterType="com.house.work.entity.UserInfo">
-        select * from sys_tb_park_user
+        select * from house_work_type
         <where>
             1 = 1
             <if test="id != null">
@@ -41,7 +41,7 @@
     </select>
 
     <select id="selectById" parameterType="Integer">
-        select * from sys_tb_park_user
+        select * from house_work_type
         where id = #{id}
     </select>
 

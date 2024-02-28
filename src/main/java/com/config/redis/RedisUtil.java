@@ -3,12 +3,10 @@ package com.config.redis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -21,16 +19,15 @@ import java.util.concurrent.TimeUnit;
  * @description:
  * @date 2019/11/7 17:47
  */
-@SuppressWarnings("unchecked")
 @Component
 public class RedisUtil {
 
 
-    //@Autowired
-    //private RedisTemplate redisTemplate;
-
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisTemplate<String,String> redisTemplate;
+
+    //@Autowired
+    //private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 批量删除对应的value
@@ -49,9 +46,9 @@ public class RedisUtil {
      * @param pattern 键值匹配规则
      */
     public void removePattern(final String pattern) {
-        Set<String> keys = stringRedisTemplate.keys(pattern);
-        if (keys.size() > 0){
-            stringRedisTemplate.delete(keys);
+        Set<String> keys = redisTemplate.keys(pattern);
+        if (keys.size() > 0) {
+            redisTemplate.delete(keys);
         }
     }
 
@@ -62,7 +59,7 @@ public class RedisUtil {
      */
     public void remove(final String key) {
         if (exists(key)) {
-            stringRedisTemplate.delete(key);
+            redisTemplate.delete(key);
         }
     }
 
@@ -73,7 +70,7 @@ public class RedisUtil {
      * @return：
      */
     public boolean exists(final String key) {
-        return stringRedisTemplate.hasKey(key);
+        return redisTemplate.hasKey(key);
     }
 
     /**
@@ -84,12 +81,9 @@ public class RedisUtil {
      */
     public String get(final String key) {
         String result = null;
-        stringRedisTemplate.setValueSerializer(new StringRedisSerializer());
-        ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
+        ValueOperations<String, String> operations = redisTemplate.opsForValue();
         result = operations.get(key);
-        if (result == null) {
-            return null;
-        }
         return result;
     }
 
@@ -103,7 +97,7 @@ public class RedisUtil {
     public boolean set(final String key, String value) {
         boolean result = false;
         try {
-            ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+            ValueOperations<String, String> operations = redisTemplate.opsForValue();
             operations.set(key, value);
             result = true;
         } catch (Exception e) {
@@ -122,9 +116,9 @@ public class RedisUtil {
     public boolean set(final String key, String value, Long expireTime) {
         boolean result = false;
         try {
-            ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+            ValueOperations<String, String> operations = redisTemplate.opsForValue();
             operations.set(key, value);
-            stringRedisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
+            redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
             result = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -135,7 +129,7 @@ public class RedisUtil {
     public boolean hmset(String key, Map<Object, Object> value) {
         boolean result = false;
         try {
-            stringRedisTemplate.opsForHash().putAll(key, value);
+            redisTemplate.opsForHash().putAll(key, value);
             result = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,7 +140,7 @@ public class RedisUtil {
     public Map<Object, Object> hmget(String key) {
         Map<Object, Object> result = null;
         try {
-            HashOperations<String, Object, Object> opsForHash = stringRedisTemplate.opsForHash();
+            HashOperations<String, Object, Object> opsForHash = redisTemplate.opsForHash();
             result = opsForHash.entries(key);
         } catch (Exception e) {
             e.printStackTrace();

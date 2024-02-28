@@ -33,7 +33,7 @@ public interface PersonalCookingIntegrationDao {
     void update(/*@Param("cookingIntegration")*/ PersonalCookingIntegration personalCookingIntegration);
 
     /*@Select("SELECT id, name, integration, actionType  FROM account_electricitybill_detail  where id = #{id}")*/
-    PersonalCookingIntegration getPersonalInfoById(/*@Param("id")*/ Integer id);
+    PersonalCookingIntegration getPersonalInfoById(/*@Param("id")*/ String id);
 
    /* @Select("<script> SELECT id, name, integration, actionType  " +
             "FROM account_electricitybill_detail " +

@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @date 2019/11/19 16:00
  */
 @Repository
-public interface HouseworkTypeDao extends BaseDao<HouseworkType,Integer> {
+public interface HouseworkTypeDao extends BaseDao<HouseworkType,String> {
 
 }

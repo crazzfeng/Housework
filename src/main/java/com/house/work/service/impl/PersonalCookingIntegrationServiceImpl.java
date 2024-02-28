@@ -34,7 +34,7 @@ public class PersonalCookingIntegrationServiceImpl implements PersonalCookingInt
     }
 
     @Override
-    public PersonalCookingIntegration getPersonalInfoById(Integer id) {
+    public PersonalCookingIntegration getPersonalInfoById(String id) {
         return personalCookingIntegrationDao.getPersonalInfoById(id);
     }
 

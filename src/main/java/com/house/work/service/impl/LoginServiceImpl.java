@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * @author yufeng li
@@ -57,6 +58,9 @@ public class LoginServiceImpl implements LoginService {
         String requestURI = request.getRequestURI();
         //从cookie中拿到token
         Cookie[] cookies = request.getCookies();
+        if (cookies == null || cookies.length == 0){
+            return null;
+        }
         String token = null;
         for (Cookie cookie : cookies) {
             if ("token".equals(cookie.getName())){
@@ -66,6 +70,30 @@ public class LoginServiceImpl implements LoginService {
         //通过token拿到登录信息
         String userJson = redisUtil.get(token);
         return JSON.parseObject(userJson,UserInfo.class);
+    }
+
+    @Override
+    public UserInfo regist(HttpServletRequest request, HttpServletResponse response, String name, String password) {
+        String s = MD5Util.MD5(password);
+        String uuid = UUID.randomUUID().toString();
+        loginDao.regist(uuid, name, s);
+        UserInfo login = loginDao.login(name, s);
+        if (login != null) {
+            String token = Seq.createSeqS();
+           /* redisUtil.set("loginName", login.getLoginName(), 1800L);
+            redisUtil.set("id", login.getId().getBytes(), 1800L);
+            redisUtil.set("password", login.getPassword().getBytes(), 1800L);*/
+            redisUtil.set(token, JSONObject.toJSONString(login), 1800L);//登录信息放入缓存
+            Cookie cookie = new Cookie("token", token);
+            cookie.setPath("/");
+            if ("https".equals(request.getScheme())) {
+                cookie.setSecure(true);
+            }
+            response.addCookie(cookie);
+            return login;
+        } else {
+            return null;
+        }
     }
 
 }

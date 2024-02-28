@@ -15,7 +15,7 @@ public class PersonalCookingIntegration {
     /**
      * 个人id
      */
-    private Integer id;
+    private String id;
 
     /**
      * 个人名称

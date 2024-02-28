@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class HouseworkType {
 
-    Integer  id;
+    String  id;
 
     String typeName;
 

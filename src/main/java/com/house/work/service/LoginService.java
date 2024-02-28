@@ -16,4 +16,6 @@ public interface LoginService {
    UserInfo login(HttpServletRequest request, HttpServletResponse response, String name, String password);
 
    UserInfo getUserInfo(HttpServletRequest request);
+
+   UserInfo regist(HttpServletRequest request, HttpServletResponse response, String name, String password);
 }

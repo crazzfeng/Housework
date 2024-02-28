@@ -13,6 +13,6 @@ import javax.servlet.http.HttpServletResponse;
  * @description:
  * @date 2019/11/5 16:41
  */
-public interface HouseworkTypeService extends BaseService<HouseworkType,Integer> {
+public interface HouseworkTypeService extends BaseService<HouseworkType,String> {
 
 }

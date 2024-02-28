@@ -5,12 +5,16 @@
     <resultMap id="BaseResultMap" type="com.house.work.entity.UserInfo">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="loginName" jdbcType="VARCHAR" property="loginName" />
-        <result column="password" jdbcType="INTEGER" property="password" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
     </resultMap>
 
     <select id="login" resultType="com.house.work.entity.UserInfo">
-        select id, loginName, password from sys_tb_park_user
+        select id, loginName, password from user_info
         where loginName = #{loginName,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
     </select>
 
+    <insert id="regist" parameterType="com.house.work.entity.UserInfo">
+        insert into user_info (id, loginName, password )
+        values ( #{id}, #{loginName}, #{password} )
+    </insert>
 </mapper>
